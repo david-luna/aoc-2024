@@ -1,16 +1,22 @@
 // Ref: https://adventofcode.com/2024/day/1
 import {byLine} from '../util/byline.js'
 
-let sumLeft = 0, sumRight = 0;
+const leftArr = [];
+const rightArr = [];
 
 byLine('input.txt', function(line) {
   // Parse the numbers
   const [left, right] = line.split('   ').map(n => Number(n));
-  // Sum all numbers
-  sumLeft += left;
-  sumRight += right;
+  leftArr.push(left);
+  rightArr.push(right);
 })
 .then(function () {
-  // The sum of diffs is the diff of the sum
-  console.log(`Result is: ${sumRight - sumLeft}`)
+  leftArr.sort();
+  rightArr.sort();
+  
+  let res = 0;
+  for (let i = 0; i < leftArr.length; i++) {
+    res += Math.abs(rightArr[i] - leftArr[i])
+  }
+  console.log(`Result is: ${res}`)
 });
