@@ -7,47 +7,33 @@ byLine('input.txt', function(line) {
   // Parse the numbers
   const report = line.split(' ').map(n => Number(n));
   
-  // Check if ascending (A) or descending (D)
-  // const type = report[1] - report[0] > 0 ? 'A' : 'D';
-  // Check if ascending (A) or descending (D)
-  let i = 0;
-  let type;
+  let index = 0;
+  let type; // ascending(A) | descending(D)
 
-  while(type === undefined && i < report.length - 1) {
-    const diff = report[i+1] - report[i];
-    if (diff > 0) type = 'A';
-    if (diff < 0) type = 'D';
-    i++;
-  }
-  let badLevel;
-  
-  console.log(type, report)
-  for (let i = 0; i < report.length - 1; i++) {
-    let diff = report[i+1] - report[i];
+  while(index < report.length - 1) {
+    const curr = report[index];
+    const next = report[index + 1];
+    const diff = next - curr;
 
-    if (type === 'A' && (diff < 1 || diff > 3)) {
-      if (badLevel) return;
-      if (i+2 === report.length) break;
-      badLevel = i;
-      console.log('bad level', badLevel)
-      diff = report[i+2] - report[i];
-      console.log('new diff', diff)
-      if (diff < 1 || diff > 3) return;
-      i++;
+    if (!type && diff > 0) type = 'A';
+    if (!type && diff < 0) type = 'D';
+
+    if (!type) {
+      // In the beginnig, just skip this one
+      if (index === 0) {
+        index++;
+        continue;
+      }
+      return;
     }
-    if (type === 'D' && (diff > -1 || diff < -3)){
-      if (badLevel) return;
-      if (i+2 === report.length) break;
-      badLevel = i;
-      console.log('bad level', badLevel)
-      diff = report[i+2] - report[i];
-      console.log('new diff', diff)
-      if (diff > -1 || diff < -3) return;
-      i++;
-    }
+
+    // There might be nuber that change the type of report
+    // ex: 10 12 8 6
+    if (type === 'A' && (diff < 1 || diff > 3)) return;
+    if (type === 'D' && (diff < -3 || diff > -1)) return;
+    index++;
   }
-  
-  console.log('safe')
+
   safeReports++;
 })
 .then(function () {
