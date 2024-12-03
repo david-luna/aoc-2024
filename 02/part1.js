@@ -1,4 +1,4 @@
-// Ref: https://adventofcode.com/2024/day/1
+// Ref: https://adventofcode.com/2024/day/2
 import {byLine} from '../util/byline.js'
 
 let safeReports = 0;
