@@ -1,4 +1,4 @@
-// Ref: https://adventofcode.com/2024/day/2
+// Ref: https://adventofcode.com/2024/day/3
 import {byLine} from '../util/byline.js'
 
 const pairs = [];
