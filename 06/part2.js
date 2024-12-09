@@ -1,21 +1,23 @@
 // Ref: https://adventofcode.com/2024/day/6
 import {readFileSync} from 'fs';
 
-const content = readFileSync('test.txt', {encoding: 'utf-8'});
+// const content = readFileSync('test.txt', {encoding: 'utf-8'});
+const content = readFileSync('input.txt', {encoding: 'utf-8'});
 const map = content.split('\n').map(l => l.split(''));
 // Position & direction from the input file
-// const guard = {
-//   pos: { x: 69, y: 74 },
-//   dir: 'up',
-// };
 const guard = {
-  pos: { x: 6, y: 4 },
+  pos: { x: 69, y: 74 },
   dir: 'up',
 };
+// const guard = {
+//   pos: { x: 6, y: 4 },
+//   dir: 'up',
+// };
 let obstructions = 0;
 
 
 function canConnect(x, y, map, char) {
+  // console.log('canConnect %d, %d, %s', x, y, char)
   // check if the guar already visited in that direction
   // and there is no obstacle already
   if (map[x][y] === char) {
@@ -31,7 +33,7 @@ function canConnect(x, y, map, char) {
 
   let str = ''
   if (char === '^') {
-    while (x > 0) str = str + map[x--][y];
+    while (x >= 0) str = str + map[x--][y];
   }
   if (char === 'v') {
     while (x < map.length) str = str + map[x++][y];
@@ -40,8 +42,9 @@ function canConnect(x, y, map, char) {
     while (y < map[0].length) str = str + map[x][y++];
   }
   if (char === '<') {
-    while (y < 0) str = str + map[x][y--];
+    while (y >= 0) str = str + map[x][y--];
   }
+  // console.log('srt is: %s', str)
   const obsIdx = str.indexOf('#');
   const chrIdx = str.indexOf(char);
 
@@ -55,8 +58,8 @@ function canConnect(x, y, map, char) {
 while(true) {
   // check stop conditions
   const {x,y} = guard.pos;
-  console.log('position (%d, %d)', x, y)
-  console.log(map.map(l => l.join('')).join('\n'))
+  // console.log('position (%d, %d)', x, y)
+  // console.log(map.map(l => l.join('')).join('\n'))
   if (x === 0 || x === map.length - 1) break;
   if (y === 0 || y === map[0].length - 1) break;
 

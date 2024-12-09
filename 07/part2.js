@@ -1,4 +1,4 @@
-// Ref: https://adventofcode.com/2024/day/2
+// Ref: https://adventofcode.com/2024/day/7
 import {byLine} from '../util/byline.js'
 
 
