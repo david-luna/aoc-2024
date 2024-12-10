@@ -29,20 +29,25 @@ byLine('input.txt', function(line) {
         const [x2, y2] = pos2;
         const [dx, dy] = [x2 - x1, y2 - y1];
 
+        antinodes.add(`${x1},${y1}`);
+        antinodes.add(`${x2},${y2}`);
+
+
         let [x, y] = [x1 - dx, y1 - dy];
-        if (isInside(x,y)) {
-          console.log(`freq(${freq}):`, pos1, '<-', pos2, x, y)
+
+        while (isInside(x,y)) {
           antinodes.add(`${x},${y}`);
+          [x, y] = [x - dx, y - dy];
         }
 
         [x, y] = [x2 + dx, y2 + dy];
-        if (isInside(x,y)) {
-          console.log(`freq(${freq}):`, pos1, '->', pos2, x, y)
+        while (isInside(x,y)) {
           antinodes.add(`${x},${y}`);
+          [x, y] = [x + dx, y + dy];
         }
       }
     }
   }
 
-  console.log(`Total antinodes (part1): ${antinodes.size}`);
+  console.log(`Total antinodes (part2): ${antinodes.size}`);
 });
